@@ -47,7 +47,7 @@ class AgendaController extends Controller
         if (!$profissional) {
             return response()->json([
                 "status" => false,
-                "message" => "Profissional não encontrado"
+                "message" => "Profissional não foi encontrado."
             ], 400);
         }
 
@@ -78,7 +78,7 @@ class AgendaController extends Controller
         ]);
         return response()->json([
             "status" => true,
-            "message" => "Agenda Cadastrada com sucesso",
+            "message" => "Agenda foi cadastrada com sucesso.",
             "data" => $agenda
 
         ], 200);
@@ -104,7 +104,7 @@ class AgendaController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "Data não encontada"
+            'message' => "Data não foi encontrada."
         ]);
     }
 
@@ -126,7 +126,7 @@ class AgendaController extends Controller
 
         return response()->json([
             'status' => false,
-            'data' => 'Profissional não disponivel'
+            'data' => 'Profissional não está disponível.'
         ]);
     }
 
@@ -149,7 +149,7 @@ class AgendaController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Nenhum registro no sistema'
+            'message' => 'Nenhum registro no sistema.'
         ]);
     }
 
@@ -161,14 +161,14 @@ class AgendaController extends Controller
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
-                'message' => "Agenda não encontrada"
+                'message' => "Agenda não foi encontrada."
             ]);
         }
 
         $agenda->delete();
         return response()->json([
             'status' => true,
-            'message' => "Agenda excluido com sucessa"
+            'message' => "Agenda excluída com sucesso."
         ]);
     }
 
@@ -180,7 +180,7 @@ class AgendaController extends Controller
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
-                'message' => "Agenda não encontrado"
+                'message' => "Agenda não foi encontrada."
             ]);
         }
 
@@ -245,7 +245,7 @@ class AgendaController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Agenda atualizada.'
+            'message' => 'Agenda foi atualizada.'
         ]);
     }
 
@@ -256,7 +256,7 @@ class AgendaController extends Controller
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
-                'message' => "Agenda não cadastrado"
+                'message' => "Agenda não foi cadastrada."
             ]);
         }
         return response()->json([

@@ -24,7 +24,7 @@ class ServicoController extends Controller
         ]);
         return response()->json([
             "status" => true,
-            "message" => "Serviço Cadastrado com sucesso",
+            "message" => "Serviço foi cadastrado com sucesso.",
             "data" => $servico
 
         ], 200);
@@ -44,7 +44,7 @@ class ServicoController extends Controller
 
         return response()->json([
             'status' => false,
-            'data' => 'Não há nenhum registro no sistema!'
+            'data' => 'Não há nenhum registro no sistema.'
         ]);
     }
 
@@ -54,7 +54,7 @@ class ServicoController extends Controller
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
-                'message' => "Serviço não Sencontrado"
+                'message' => "Serviço não foi encontrado."
             ]);
         }
 
@@ -90,7 +90,7 @@ class ServicoController extends Controller
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
-                'message' => "Serviço não encontrado"
+                'message' => "Serviço não foi encontrado."
             ]);
         }
 
@@ -111,7 +111,7 @@ class ServicoController extends Controller
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
-                'message' => "Serviço não encontrado"
+                'message' => "Serviço não foi encontrado."
             ]);
         }
         return response()->json([
@@ -134,7 +134,7 @@ class ServicoController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "Servico não encontrado"
+            'message' => "Serviço não foi encontrado."
         ]);
     }
 
@@ -152,7 +152,7 @@ class ServicoController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "Descrição não foi encontrado"
+            'message' => "Descrição não foi encontrada."
         ]);
     }
 }

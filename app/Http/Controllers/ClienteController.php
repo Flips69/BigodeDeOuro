@@ -43,7 +43,7 @@ class ClienteController extends Controller
             return response()->json([
                 'status' => true,
                 'title'=>'Cadastrado',
-                'message' => 'Cliente Cadastrado com sucesso',
+                'message' => 'Cliente foi cadastrado com sucesso.',
                 'data' => $cliente
     
             ], 200);
@@ -52,7 +52,7 @@ class ClienteController extends Controller
         return response()->json([
             'status' => false,
             'title'=>'Erro',
-            'message' => 'Cliente não foi cadastrado',
+            'message' => 'Cliente não foi cadastrado.',
             'data' => $cliente
 
         ], 200);
@@ -74,7 +74,7 @@ class ClienteController extends Controller
         }
         return response()->json([
             'status' => false,
-            'data' => 'Não há nenhum cliente registrado'
+            'data' => 'Não há nenhum cliente registrado.'
         ]);
     }
     
@@ -85,14 +85,14 @@ class ClienteController extends Controller
         if (!isset($cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "Cliente não encontrado"
+                'message' => "Cliente não foi encontrado"
             ]);
         }
 
         $cliente->delete();
         return response()->json([
             'status' => true,
-            'message' => "Cliente excluido com sucesso"
+            'message' => "Cliente excluído com sucesso."
         ]);
     }
 
@@ -102,7 +102,7 @@ class ClienteController extends Controller
         if (!isset($cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "Cliente não encontrado"
+                'message' => "Cliente não foi encontrado."
             ]);
         }
 
@@ -154,7 +154,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Cliente atualizado.'
+            'message' => 'Cliente foi atualizado.'
         ]);
     }
 
@@ -170,7 +170,7 @@ class ClienteController extends Controller
         if (!isset($cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "cliente não cadastrado"
+                'message' => "Cliente não está cadastrado."
             ]);
         }
         return response()->json([
@@ -194,7 +194,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Nenhum cliente foi encontrado'
+            'message' => 'Nenhum cliente foi encontrado.'
         ]);
     }
 
@@ -213,7 +213,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Nenhum CPF encontrado'
+            'message' => 'Nenhum CPF foi encontrado.'
         ]);
     }
 
@@ -230,7 +230,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Nenhum celular foi encontrado'
+            'message' => 'Nenhum celular foi encontrado.'
         ]);
     }
 
@@ -247,7 +247,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Nenhum email foi encontrado'
+            'message' => 'Nenhum email foi encontrado.'
         ]);
     }
 
@@ -259,23 +259,37 @@ class ClienteController extends Controller
         if (!isset($cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "Email invalido"
+                'message' => "Email está inválido."
 
             ]);
         }
 
-        if (isset($cliente->cpf)) {
-           
-            $cliente->password = Hash::make( $cliente->cpf );
-            
+        $cliente = Cliente::where('cpf', '=', $request->cpf)->first();
+
+        if (!isset($cliente)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Cpf não foi encontrado."
+
+            ]);
+        }
+        if (!isset($request->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Escreva a nova senha."
+
+            ]);
+        }
+        if (isset($request->password)) {
+            $cliente->password = $request->password; //Hash::make( $request->password );
         }
         $cliente->update();
 
         return response()->json([
             'status' => true,
-            'password' => $cliente->password
+            'password' => Hash::make($cliente->password)
         ]);
-    }
+    } 
 
 
 
@@ -344,7 +358,7 @@ class ClienteController extends Controller
         if (!$cliente && !$profissional) {
             return response()->json([
                 'status' => false,
-                'message' => 'E-mail inválido'
+                'message' => 'E-mail inválido.'
             ]);
         }
     
@@ -368,7 +382,7 @@ class ClienteController extends Controller
     
         return response()->json([
             'status' => false,
-            'message' => 'Senha inválida'
+            'message' => 'Senha inválida.'
         ]);
     }
     

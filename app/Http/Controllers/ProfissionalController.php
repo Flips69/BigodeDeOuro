@@ -40,13 +40,11 @@ class ProfissionalController extends Controller
             return response()->json([
                 "status" => true,
                 'title' => 'Cadastrado',
-                "message" => "Profissional Cadastrado com sucesso",
+                "message" => "Profissional foi cadastrado com sucesso.",
                 "data" => $profissional
 
             ], 200);
         }
-
-       
     }
 
 
@@ -62,7 +60,7 @@ class ProfissionalController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => "Nenhum Profissional Registrado"
+            'message' => "Nenhum profissional foi registrado."
         ]);
     }
 
@@ -74,24 +72,24 @@ class ProfissionalController extends Controller
         if (!isset($profissional)) {
             return response()->json([
                 'status' => false,
-                'message' => "Profissional não encontrado"
+                'message' => "Profissional não foi encontrado."
             ]);
         }
-        
+
         $agenda = Agenda::where('profissional_id', $id)->first();
-        
+
         if ($agenda) {
             return response()->json([
                 'status' => false,
-                'message' => "Não é possível excluir o profissional, pois há uma agenda associada a ele"
+                'message' => "Não é possível excluir o profissional, pois há uma agenda associada a ele."
             ]);
         }
-    
+
         $profissional->delete();
         return response()->json([
             'status' => true,
-            'message' => "Profissional excluído com sucesso"
-        ]); 
+            'message' => "Profissional excluído com sucesso."
+        ]);
     }
 
 
@@ -101,7 +99,7 @@ class ProfissionalController extends Controller
         if (!isset($profissional)) {
             return response()->json([
                 'status' => false,
-                'message' => "Profissional não encontrado"
+                'message' => "Profissional não foi encontrado."
             ]);
         }
 
@@ -159,11 +157,11 @@ class ProfissionalController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Profissional atualizado.'
+            'message' => 'Profissional foi atualizado.'
         ]);
     }
 
-//Pesquisas
+    //Pesquisas
     public function pesquisarPorId($id)
     {
         $profissional = Profissional::find($id);
@@ -171,7 +169,7 @@ class ProfissionalController extends Controller
         if (!isset($profissional)) {
             return response()->json([
                 'status' => false,
-                'message' => "cliente não cadastrado"
+                'message' => "Cliente não está cadastrado."
             ]);
         }
         return response()->json([
@@ -197,7 +195,7 @@ class ProfissionalController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "Nome não encontrado"
+            'message' => "Nome não foi encontrado."
         ]);
     }
 
@@ -218,7 +216,7 @@ class ProfissionalController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "CPF não encontrado"
+            'message' => "CPF não foi encontrado."
         ]);
     }
 
@@ -238,7 +236,7 @@ class ProfissionalController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "E-mail não encontrado"
+            'message' => "E-mail não foi encontrado."
         ]);
     }
 
@@ -255,7 +253,7 @@ class ProfissionalController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => "Celular não encontrado"
+            'message' => "Celular não foi encontrado."
         ]);
     }
 
@@ -263,25 +261,42 @@ class ProfissionalController extends Controller
     public function recuperarSenha(Request $request)
     {
 
-        $profissional = Profissional::where('email', '=', $request->email)->first();
+       $profissional = Profissional::where('email', '=', $request->email)->first();
 
         if (!isset($profissional)) {
             return response()->json([
                 'status' => false,
-                'message' => "Email invalido"
+                'message' => "Email está inválido."
 
             ]);
         }
-        if (isset($profissional->cpf)) {
-            $profissional->password = Hash::make( $profissional->cpf );
+
+       $profissional = Profissional::where('cpf', '=', $request->cpf)->first();
+
+        if (!isset($profissional)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Cpf não foi encontrado."
+
+            ]);
         }
-        $profissional->update();
+        if (!isset($request->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Escreva a nova senha."
+
+            ]);
+        }
+        if (isset($request->password)) {
+           $profissional->password = $request->password; //Hash::make( $request->password );
+        }
+       $profissional->update();
 
         return response()->json([
             'status' => true,
-            'password' => $profissional->password
+            'password' => Hash::make($profissional->password)
         ]);
-    }
+    } 
 }
 
 //Pronto

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class FormaDePagamentoUpdateFormRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class FormaDePagamentoUpdateFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,17 @@ class FormaDePagamentoUpdateFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'tipos_de_pagamento' => 'required',
+            'status_do_pagamento'=> 'required',
+            'taxa'=>'decimal:2,4'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'error' => $validator->errors()
+        ]));
     }
 }
