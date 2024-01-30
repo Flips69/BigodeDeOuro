@@ -42,17 +42,12 @@ class AgendaFormRequest extends FormRequest
     public function messages()
     {
         return  [
-            'profissional_id.required' => 'Preencha o campo profissional',
-
-
-
-            'data_hora.required' =>  'Horario obrigatorio',
-            'data_hora.date' => 'formato inválido',
-
-
-            'pagamento.required' => 'preencha o campo',
-            'pagamento.max' => 'o campo deve conter 20 caracteres',
-            'pagamento.min' => 'o campo deve no minimo 3 caracteres',
+            'profissional_id.required' => 'Preencha o campo profissional.',
+            'data_hora.required' =>  'Horario obrigatório.',
+            'data_hora.date' => 'Formato inválido.',
+            'pagamento.required' => 'Preencha o campo.',
+            'pagamento.max' => 'O campo deve conter no máximo 20 caracteres.',
+            'pagamento.min' => 'O campo deve no mínimo 3 caracteres.',
 
         ];
     }
